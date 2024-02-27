@@ -8,7 +8,7 @@ This process runs based on two scripts: receive_json.py and json_to_pdf.py.
   The json_to_pdf function will convert the JSON object to a PDF file and save it to the file path.
 - json_to_pdf.py: a module that contains the code needed to convert a JSON object to PDF.
 
-I have included an additional file called send_json.py, which can be used as a basis for implementing a send routine in your project.
+I have included an additional file called send_json.py, which can be used as a basis for implementing a send routine in your project. In order to request the data, I have opted to use RabbitMQ. The send_json.py file should be pretty self-explanatory, but essentially it takes a JSON object and a file path string and stores both to a tuple. That tuple is then serialized, which is required to send the data via the communication pipeline.
 
 Below you will find a simple UML sequence diagram summarizing the steps laid out above.
 
