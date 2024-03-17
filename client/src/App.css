@@ -36,3 +36,28 @@
     transform: rotate(360deg);
   }
 }
+
+/* table styles */
+.tables-container {
+  display: flex;
+  justify-content: space-around; /* This centers the tables and adds space around them */
+  flex-wrap: wrap; /* Allows tables to wrap into a new line on smaller screens */
+}
+
+table {
+  flex: 1; /* Makes each table take equal amount of width */
+  /* You might want to set a min-width to prevent tables from getting too small */
+  min-width: 300px; /* Adjust based on your content */
+}
+
+.table-wrapper {
+  flex: 1; /* Adjust this as needed to control how much space each table takes up */
+  padding: 1.25rem; /* Optional: adds some spacing between tables */
+  min-width: 300px; /* Optional: prevent the tables from becoming too small */
+  max-width: 1280px; /* Optional: prevent the tables from becoming too small */
+}
+
+/* button styles */
+button {
+  margin: 8px;
+}

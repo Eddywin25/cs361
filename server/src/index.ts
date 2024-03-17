@@ -7,9 +7,10 @@ const cors = require('cors');
 dotenv.config();
 console.log('MongoDB URI:', process.env.MONGODB_URI);
 
-const port = 3000;
+const port = 8000;
 const app = express();
 
+// Connect to nba_db
 mongoose.connect(process.env.MONGO_URI!)
     .then(() => console.log('Connected to database'))
     .catch(err => console.error('Database connection error', err));
@@ -23,6 +24,6 @@ app.use(express.json());
 app.use('/player', playerRouter);
 
 app.listen(port, () => {
-    console.log('Server listening on port ${port}')
+    console.log(`Server listenzing on port ${port}`);
     }
 )
