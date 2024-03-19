@@ -6,35 +6,84 @@ interface PlayerData {
   id: string;
   first_name: string;
   last_name: string;
-  team_id: string;
+  position: string;
+  team_id: {
+    _id: string;
+    id: string;
+    name: string;
+  };
+  game_stats: {
+    _id: string;
+    id: string;
+    player_id: string;
+    points: string;
+    fga: string;
+    fgm: string;
+  }[];
 }
 
-const TablePlayerStats: React.FC = () => {
-  const [playerData, setPlayer] = useState<PlayerData[]>([]);
+const TablePlayerStats = (selectedPlayerId: any) => {
+    const [playerData, setPlayer] = useState<PlayerData[]>([]);
 
-  useEffect(() => {
-    fetch('http://localhost:8000/player')  //Adjust the URL based on server
-      .then(response => response.json())
-      .then(data => setPlayer(data))
-      .catch(error => console.error('Error fetching data:', error));
-  }, []);
+    useEffect(() => {
+    fetch('http://localhost:8000/playerStats')
+        .then(response => response.json())
+        .then(data => setPlayer(data))
+        .catch(error => console.error('Error fetching data:', error));
+    }, []);
+
+    // filter on selected player
+    const filteredPlayers = selectedPlayerId.selectedPlayerId
+        ? playerData.filter((player) => player.id === selectedPlayerId.selectedPlayerId)
+        : playerData;
+
+    // extract player stat data from JSON
+    const extractedData = filteredPlayers.map((player) => {
+        const { id, first_name, last_name, position, team_id, game_stats } = player;
+        const { name: teamName } = team_id;
+        
+        const totalPoints = game_stats.reduce((sum: any, stat: any) => sum + parseInt(stat.points), 0);
+        const totalFGA = game_stats.reduce((sum: any, stat: any) => sum + parseInt(stat.fga), 0);
+        const totalFGM = game_stats.reduce((sum: any, stat: any) => sum + parseInt(stat.fgm), 0);
+        
+        return {
+            id: id,
+            firstName: first_name,
+            lastName: last_name,
+            position,
+            teamName,
+            totalPoints,
+            totalFGA,
+            totalFGM,
+        };
+    });
+
+    // console.log("PlayerStats: ", extractedData);
 
     return (
         <TableContainer component={Paper}>
-            <Table>
+            <Table stickyHeader aria-label="sticky table">
                 <TableHead>
                     <TableRow>
                         <TableCell>First Name</TableCell>
                         <TableCell>Last Name</TableCell>
                         <TableCell>Team</TableCell>
+                        <TableCell>Position</TableCell>
+                        <TableCell>Points</TableCell>
+                        <TableCell>FGA</TableCell>
+                        <TableCell>FGM</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {playerData.map((player) => (
+                    {extractedData.map((player) => (
                         <TableRow key={player.id}>
-                            <TableCell>{player.first_name}</TableCell>
-                            <TableCell>{player.last_name}</TableCell>
-                            <TableCell>{player.team_id}</TableCell>
+                            <TableCell>{player.firstName}</TableCell>
+                            <TableCell>{player.lastName}</TableCell>
+                            <TableCell>{player.teamName}</TableCell>
+                            <TableCell>{player.position}</TableCell>
+                            <TableCell>{player.totalPoints}</TableCell>
+                            <TableCell>{player.totalFGA}</TableCell>
+                            <TableCell>{player.totalFGM}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -42,5 +91,6 @@ const TablePlayerStats: React.FC = () => {
         </TableContainer>
     );
 };
+
 
 export default TablePlayerStats;

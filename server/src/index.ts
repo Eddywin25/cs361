@@ -2,6 +2,8 @@ const express = require('express');
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import playerRouter from './routes/playerRoutes';
+import teamRouter from './routes/teamRoutes';
+import playerStatsRouter from './routes/playerStatsRoutes';
 const cors = require('cors');
 
 dotenv.config();
@@ -22,6 +24,8 @@ app.use(express.json());
 
 // Use routers
 app.use('/player', playerRouter);
+app.use('/team', teamRouter);
+app.use('/playerStats', playerStatsRouter);
 
 app.listen(port, () => {
     console.log(`Server listenzing on port ${port}`);

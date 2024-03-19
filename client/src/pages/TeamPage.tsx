@@ -1,8 +1,8 @@
 // import React, { useEffect, useState } from 'react';
 import TableTeamStats from '../components/TableTeamStats';
-import NumberInputBasic from '../components/NumberInput';
+// import NumberInputBasic from '../components/NumberInput';
 
-const PlayerPage = () => {
+const TeamPage = () => {
   // const [player, setPlayer] = useState([]);
 
   // useEffect(() => {
@@ -14,14 +14,16 @@ const PlayerPage = () => {
 
   return (
     <>
-      <div className="tables-container">
-        <div className="table-wrapper">
-          <TableTeamStats />
+      <div className="content-main">
+        <h1>Team Information</h1>
+        <div className="tables-container">
+          <div className="table-wrapper">
+            <TableTeamStats />
+          </div>
         </div>
       </div>
-      <NumberInputBasic />
     </>
   );
 };
 
-export default PlayerPage;
+export default TeamPage;

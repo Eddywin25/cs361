@@ -61,3 +61,15 @@ table {
 button {
   margin: 8px;
 }
+
+/* div styles */
+.content-main {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 36px 48px 48px 0px;
+}
+
+.article-main {
+  padding: 8px 12px 12px 12px;
+}

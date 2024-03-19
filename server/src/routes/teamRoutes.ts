@@ -3,6 +3,6 @@ import { getTeam } from '../controllers/getTeam';
 
 const router = express.Router();
 
-router.get('/team', getTeam);
+router.get('/', getTeam);
 
 export default router;

@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const TeamSchema = new Schema({
+  id: String,
   name: String,
   city: String,
   state: String,

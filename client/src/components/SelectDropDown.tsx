@@ -11,20 +11,22 @@ interface PlayerData {
   team_id: string;
 }
 
-export default function SelectVariants() {
-  const [age, setAge] = React.useState('');
+export default function SelectVariants({ onChange }: { onChange: any }) {
+  const [player, setPlayer] = React.useState('');
 
-  const [playerData, setPlayer] = useState<PlayerData[]>([]);
+  const [playerData, setPlayerData] = useState<PlayerData[]>([]);
 
   useEffect(() => {
     fetch('http://localhost:8000/player')  //Adjust the URL based on server
       .then(response => response.json())
-      .then(data => setPlayer(data))
+      .then(data => setPlayerData(data))
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
+    const newValue = event.target.value as string;
+    setPlayer(newValue); // Update local state to reflect the current selection
+    onChange(newValue); // Call the onChange prop function to update parent component's state
   };
 
   return (
@@ -34,7 +36,7 @@ export default function SelectVariants() {
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
-          value={age}
+          value={player}
           onChange={handleChange}
           label="Player"
         >
@@ -43,7 +45,7 @@ export default function SelectVariants() {
             </MenuItem>
             {playerData.map((player) => (
               <MenuItem value={player.id}>
-                  {player.last_name}, {player.first_name}
+                  {player.first_name} {player.last_name}
               </MenuItem>
             ))}
         </Select>

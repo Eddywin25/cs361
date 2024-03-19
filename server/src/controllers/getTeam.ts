@@ -1,6 +1,6 @@
 import Team from '../models/teamModel';
 
-export const getTeam = async (req, res) => {
+export const getTeam = async (req: any, res: any) => {
   try {
     const team = await Team.find();
     res.json(team);

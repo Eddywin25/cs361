@@ -1,30 +1,38 @@
-// import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TablePlayerStats from '../components/TablePlayerStats';
 import NumberInputBasic from '../components/NumberInput';
 import SelectVariants from '../components/SelectDropDown';
 import '../App.css';
 
-// interface Player {
-//   id: string;
-//   first_name: string;
-//   last_name: string;
-//   team_id: string;
-// }
+const PlayerTableParentDiv = () => {
+  const [selectedPlayerId, setSelectedPlayerId] = useState('');
+
+  return (
+    <div>
+      <SelectVariants onChange={setSelectedPlayerId} />
+      <TablePlayerStats selectedPlayerId={selectedPlayerId} />
+    </div>
+  );
+};
 
 const ComparePage = () => {
   return (
     <>
-      <div className="tables-container">
-        <div className="table-wrapper">
-          <SelectVariants />
-          <TablePlayerStats />
+      <div className="content-main">
+        <h1>Compare Players</h1>
+        <article className='article-main'>
+          <p>Compare player stats using the dropdowns above each table.</p>
+        </article>
+        <div className="tables-container">
+          <div className="table-wrapper">
+            <PlayerTableParentDiv />
+          </div>
+          <div className="table-wrapper">
+            <PlayerTableParentDiv />
+          </div>
         </div>
-        <div className="table-wrapper">
-          <SelectVariants />
-          <TablePlayerStats />
-        </div>
+        <NumberInputBasic />
       </div>
-      <NumberInputBasic />
     </>
   );
 };
